@@ -1,0 +1,35 @@
+{%extends 'partials/base.html'%}
+{% load crispy_forms_tags %}
+{% block title %}Delete Income Page {% endblock %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'income' %}">Income</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Delete Income</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-8 mb-4 offset-md-2 mt-4 py-5">
+            <div class="card ">
+                <div class="card-body " style="box-shadow: 0 3px 7px grey;">
+                    <h4>Are you sure you want to delete <strong>{{income.source}}</strong> income!?</h4>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{form|crispy}}
+                        <div class="row pt-2">
+                            <div class="col-md-6 ">
+                                <a href="{% url 'income' %}" class="btn btn-secondary btn-block"> Cancel</a>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary btn-block" >Delete Income</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{%endblock%}

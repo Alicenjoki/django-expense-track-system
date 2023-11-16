@@ -1,0 +1,82 @@
+{%extends 'partials/auth_base.html'%}
+
+{% load static %}
+
+{% block title %}Registration Page {% endblock %}
+
+{% block content %}
+<style>
+    .showPasswordToggle{
+        cursor: pointer; 
+        transition: all; 
+    }
+
+    .showPasswordToggle:hover{
+        transform: scale(1.2);
+    }
+</style>
+
+<div class="row" >
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="card" style="margin-top: 50px; box-shadow: 0 3px 7px grey;">
+            <div class="card-title">
+                <h4 class="text-center py-3">Registration Page</h4>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'register' %}" method="post">
+                    {%csrf_token%}
+                    <div class="form-group">
+                        <input 
+                            type="text"
+                            name="username"
+                            placeholder="username"
+                            id="usernamefield"
+                            class="form-control form-control-sm"
+                            value="{{fieldValues.username}}"
+
+                        >
+                    </div>
+                    <div class="invalid-feedback invalid-feedback" style="display: none;">
+                        
+                    </div>
+                    <p class="text-sm text-success usernameSuccessOutput"></p>
+                    <div class="form-group">
+                        <input 
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            id="emailfield"
+                            class="form-control form-control-sm"
+                            value="{{fieldValues.email}}"
+                             
+                        >
+                    </div>
+                    <div class="invalid-feedback2 invalid-feedback" style="display: none;">
+                       
+                    </div>
+                    <p class="text-sm text-success emailSuccessOutput"></p>
+                    <div class="form-group">
+                        <input 
+                            type="password"
+                            name="password"
+                            placeholder="password"
+                            id="passwordfield"
+                            class="form-control form-control-sm"
+                             
+                        >
+                        <small class="float-right py-1 showPasswordToggle">SHOW</small>
+                    </div>
+                    <button class="btn btn-success btn-block submitBtn border-radius-30" type="submit">Register</button>
+                    <p class="text-center mt-2">Already have an account? <a href="{% url 'login' %}">login</a></p>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+<script src="{%static 'js/register.js'%}"></script>
+{%endblock%}

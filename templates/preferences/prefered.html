@@ -1,0 +1,26 @@
+{% extends 'partials/base.html' %}
+
+{% block title %} preferences {%endblock%}
+
+{% block content %}
+
+    <h5>Preferences</h5>
+    <hr>
+    <form action="{% url 'prefered' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <select name="currency" class="custom-select" id="inputGroupSelect04">
+            {%if user_prefrence.currency%}
+            <option name="currency" selected value="{{user_prefrence.currency}}">{{user_prefrence.currency}}</option>
+            {%endif%}
+            
+            {% for currency in currencies %}
+            <option name="currency" value="{{currency.name}} - {{currency.value}} ">{{currency.name}} - {{currency.value}} </option>
+            {% endfor %}
+            </select>
+            <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+{%endblock%}

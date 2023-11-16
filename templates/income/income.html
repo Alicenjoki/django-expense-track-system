@@ -1,0 +1,95 @@
+{%extends 'partials/base.html'%}
+
+{% block title %}Income Page {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 mb-4">
+            <form class="form-inline float-right mr-3" method="post">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2" id="searchField" type="search" placeholder="Search" aria-label="Search">
+                <!-- <button class="btn btn-success my-2 my-sm-0" style="color: white;" type="submit">Search</button> -->
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Income</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My Income</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-2 mt-1">
+            <a href="{% url 'add_income' %}" class="btn btn-primary"> Add Income </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-stiped table-hover" style="box-shadow: 0 3px 7px rgb(170, 170, 170);">
+                <thead>
+                    <tr>
+                        <th>Amount({{currency}})</th>
+                        <th>Source</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    {% for inc in page_obj %}
+                    <tr>
+                        <td>{{inc.amount}}</td>
+                        <td>{{inc.source}}</td>
+                        <td>{{inc.description}}</td>
+                        <td>{{inc.created}}</td>
+                        <td>
+                            <a href="{% url 'edit_income' inc.id %}" class="btn btn-warning btn-sm py-1 pl-2 pr-2 mr-2"><i class="fa fa-pencil"></i></a>
+                            <a href="{% url 'delete_income' inc.id %}" class="btn btn-danger btn-sm py-1 pl-2 pr-2"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 float-left">
+                    <p class="text-left">Showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}} </p>
+                </div>
+    
+                <div class="col-md-6 col-sm-6 float-right ">
+                    <ul class="pagination float-right">
+                        {% if page_obj.has_previous %}
+                        <li {%if page_obj.number == 1%} class="page-item active" {%endif%}>
+                          <a class="page-link" href="?page=1" >&laquo; 1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a>
+                        </li>
+                        {%endif%}
+                        <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active">
+                          <a class="page-link" href="">2 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{page_obj.paginator.num_pages}}">{{page_obj.paginator.num_pages}} &raquo;</a>
+                        </li>
+                        {%endif%}
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+
+{%endblock%}

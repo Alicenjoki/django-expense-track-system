@@ -1,0 +1,28 @@
+{%extends 'partials/base.html'%}
+{% load crispy_forms_tags %}
+{% block title %}Expenses Page {% endblock %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'expenses' %}">Expenses</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Expenses</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-8 mb-4 offset-md-2">
+            <div class="card">
+                <div class="card-body" style="box-shadow: 0 3px 7px grey;">
+                    <form action="{% url 'edit_expense' expenses.id %}" method="POST">
+                        {% csrf_token %}
+                        {{form|crispy}}
+                        <a href="{% url 'expenses' %}" class="btn btn-outline-secondary"> Cancel</a>
+                        <button class="btn btn-success" >Edit Expense</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{%endblock%}

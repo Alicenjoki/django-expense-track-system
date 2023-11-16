@@ -1,0 +1,11 @@
+to test if the email is working
+step 1: run the following in the command line
+    $ ifconfig 
+step 2: then take the ip address in the wlp20 part
+
+step 3: Add the ip in your allowed host
+
+step 4: run python3 manage.py runserver <ipaddress>:8000
+
+
+
